@@ -1,31 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:letseat/pages/signin.dart';
 
+import 'package:letseat/pages/home_page.dart';
+import 'package:letseat/providers/main_provider.dart';
+import 'package:provider/provider.dart';
+
+
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'shatti test',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      routerConfig: router,
-    );
-  }
+  runApp(MyApp());
 }
 
 final router = GoRouter(routes: [
   GoRoute(
+    path: "/",
+    builder: (context, state) => HomePage(),
+  ),
+  GoRoute(
     path: "/signin",
     builder: (context, state) => Singin(),
-  )
+  ),
 ]);
+
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => MainProvider())],
+      child: MaterialApp.router(
+        routerConfig: router,
+      ),
+    );
+  }
+}
+

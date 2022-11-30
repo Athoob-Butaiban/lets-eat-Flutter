@@ -18,7 +18,13 @@ class Singin extends StatelessWidget {
                 context.push("/add"); // to add the router to the page
               },
               icon: Icon(Icons.add_box_outlined) // to add the button
-              )
+              ),
+          IconButton(
+              onPressed: () {
+                context.push("/add"); // to add the router to the page
+              },
+              icon: Icon(Icons.add_box_outlined) // to add the button
+              ),
         ],
       ),
     );

@@ -24,5 +24,10 @@ final router = GoRouter(routes: [
   GoRoute(
     path: "/",
     //builder: (context, state) => Singin(),
+
+    //
+    //
+
+    //
   )
 ]);

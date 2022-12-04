@@ -7,3 +7,12 @@ class CategoryModel {
     required this.image,
   });
 }
+
+class RecipesModel {
+  String text;
+  String image;
+  RecipesModel({
+    required this.text,
+    required this.image,
+  });
+}

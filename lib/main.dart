@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:letseat/pages/signup_page.dart';
@@ -12,6 +14,11 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isAndroid) {
+    MainProvider.dioClient.options.baseUrl = "10.0.2.2";
+  }
+
   var signProvider = SignProvider();
   var authorized = await signProvider.tokena(); // checking the token
 

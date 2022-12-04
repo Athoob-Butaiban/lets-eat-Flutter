@@ -16,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isAndroid) {
-    MainProvider.dioClient.options.baseUrl = "10.0.2.2";
+    MainProvider.dioClient.options.baseUrl = "http://10.0.2.2:8000";
   }
 
   var signProvider = SignProvider();

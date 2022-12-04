@@ -1,4 +1,4 @@
-// making provider for signin
+// making provider for signup
 
 import 'dart:ffi';
 
@@ -9,24 +9,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main_provider.dart';
 
-class SigninProvider extends ChangeNotifier {
+class SignProvider extends ChangeNotifier {
   String? username; // to check if the user is loged in or not
 
   // make the function future to await it & convert itstype to give reponse
   Future<bool> sign(
       {required String username, required String password}) async {
     try {
-      print("HELLO HELLO");
+      print("helllo hello ");
       // check for errors
-      var response = await MainProvider.dioClient.post("/login/", //
+      var response = await MainProvider.dioClient.post("/register/", //
           data: {
             "username": username,
             "password": password,
           }); //dio client
 
-      print('******************');
+      print('==========================');
       print(response);
-      print('******************');
+      print('==========================');
       var token =
           response.data["token"]; // the other name for the token is access
 

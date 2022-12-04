@@ -10,6 +10,7 @@ import 'package:letseat/pages/home_page.dart';
 import 'package:letseat/providers/category_provider.dart';
 import 'package:letseat/providers/main_provider.dart';
 import 'package:letseat/providers/sign_provider.dart';
+import 'package:letseat/providers/signin_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => signProvider),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
+        ChangeNotifierProvider(create: (context) => SigninProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: router,

@@ -2,12 +2,10 @@
 // singin is same as signup but without the password verfication
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/sign_provider.dart';
+import '../providers/signin_provider.dart';
 
 class Singin extends StatelessWidget {
   Singin({super.key});
@@ -51,21 +49,21 @@ class Singin extends StatelessWidget {
                     if (value == null || value.isEmpty) {
                       return "Required field";
                     }
-                    if (value != passwordController) {
-                      return "Password does not match";
-                    }
+                    // if (value != passwordController) {
+                    //   return "Password does not match";
+                    // }
                     return null;
                   },
                 ),
                 ElevatedButton(
                     onPressed: () async {
                       if (keyForm.currentState!.validate()) {
-                        var signed = await context.read<SignProvider>().sign(
+                        var signed = await context.read<SigninProvider>().sign(
                             username: usernameController.text,
                             password: passwordController
                                 .text); // calling the provider
                         if (signed) {
-                          context.go("/");
+                          context.go("/login/");
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("You did not signin ")));

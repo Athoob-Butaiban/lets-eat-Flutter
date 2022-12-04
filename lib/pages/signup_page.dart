@@ -52,14 +52,17 @@ class SignupPage extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: confirmPasswordController,
-                  decoration: InputDecoration(hintText: "Confirm Password"),
+                  decoration: InputDecoration(
+                    hintText: "Confirm Password",
+                  ),
+                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Required field";
                     }
-                    if (value != passwordController) {
-                      return "Password does not match";
-                    }
+                    // if (value != passwordController) {
+                    //   return "Password does not match";
+                    // }
                     return null;
                   },
                 ),
@@ -71,10 +74,14 @@ class SignupPage extends StatelessWidget {
                     if (formKey.currentState!.validate()) {
                       var signed = await context.read<SignProvider>().sign(
                           username: usernameController.text,
-                          password:
-                              passwordController.text); // calling the provider
+                          password: passwordController.text);
+                      print("================================== ");
+                      print("$signed");
+                      print("================================== ");
+
+                      // calling the provider
                       if (signed) {
-                        context.go("/");
+                        context.go("/HomePage");
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("You did not signup ")));

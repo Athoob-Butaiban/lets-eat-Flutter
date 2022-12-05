@@ -99,7 +99,9 @@ class SignProvider extends ChangeNotifier {
   void signout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.remove("token");
-    username = null;
+    username = null; // no signin for the user
+    MainProvider.dioClient.options.headers
+        .remove("authorization"); // removing the header
     notifyListeners();
 
     print("this is signout");

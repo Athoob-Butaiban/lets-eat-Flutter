@@ -2,22 +2,22 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:letseat/client.dart';
+import 'package:letseat/pages/add_recipe.dart';
 import 'package:letseat/pages/signup_page.dart';
 
 import 'package:letseat/pages/signin.dart';
 
 import 'package:letseat/pages/home_page.dart';
 import 'package:letseat/providers/category_provider.dart';
-import 'package:letseat/providers/main_provider.dart';
 import 'package:letseat/providers/sign_provider.dart';
-
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isAndroid) {
-    MainProvider.dioClient.options.baseUrl = "http://10.0.2.2:8000";
+    Client.dio.options.baseUrl = "http://10.0.2.2:8000";
   }
 
   var signProvider = SignProvider();
@@ -58,7 +58,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => signProvider),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
       ],

@@ -10,7 +10,7 @@ import 'package:letseat/pages/home_page.dart';
 import 'package:letseat/providers/category_provider.dart';
 import 'package:letseat/providers/main_provider.dart';
 import 'package:letseat/providers/sign_provider.dart';
-import 'package:letseat/providers/signin_provider.dart';
+
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -21,7 +21,7 @@ void main() async {
   }
 
   var signProvider = SignProvider();
-  var authorized = await signProvider.tokena(); // checking the token
+  var authorized = await signProvider.hasToken(); // checking the token
 
   print("authorized $authorized"); // to test the autherization
 
@@ -61,7 +61,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => signProvider),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
-        ChangeNotifierProvider(create: (context) => SigninProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: router,

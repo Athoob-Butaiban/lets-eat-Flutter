@@ -14,7 +14,7 @@ class RecipeProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    var response = await Client.dioCrud.get("/recipes");
+    var response = await Client.dio.get("/recipes");
 
     var RecipeJasonList = response.data as List;
 
@@ -29,7 +29,7 @@ class RecipeProvider extends ChangeNotifier {
     required String description,
     required File image,
   }) async {
-    await Client.dioCrud.post("/recipes",
+    await Client.dio.post("/recipes",
         data: FormData.fromMap({
           "title": title,
           "description": description,
@@ -45,7 +45,7 @@ class RecipeProvider extends ChangeNotifier {
     required File image,
     required int id,
   }) async {
-    await Client.dioCrud.patch("/recipes/$id",
+    await Client.dio.patch("/recipes/$id",
         data: FormData.fromMap({
           "title": title,
           "description": description,
@@ -56,7 +56,7 @@ class RecipeProvider extends ChangeNotifier {
   }
 
   void deleteRecipe(int id) async {
-    await Client.dioCrud.delete("/recipes/$id");
+    await Client.dio.delete("/recipes/$id");
 
     getRecipes();
   }

@@ -5,9 +5,8 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:letseat/client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'main_provider.dart';
 
 class SignProvider extends ChangeNotifier {
   String? username; // to check if the user is loged in or not
@@ -18,7 +17,7 @@ class SignProvider extends ChangeNotifier {
     try {
       print("helllo hello this is signup");
       // check for errors
-      var response = await MainProvider.dioClient.post("/register/", //
+      var response = await Client.dio.post("/register/", //
           data: {
             "username": username,
             "password": password,
@@ -30,7 +29,7 @@ class SignProvider extends ChangeNotifier {
       var token =
           response.data["token"]; // the other name for the token is access
 
-      MainProvider.dioClient.options.headers["authorization"] =
+      Client.dio.options.headers["authorization"] =
           "Bearer $token"; // setting the header for the token
 
       this.username = username;
@@ -52,7 +51,7 @@ class SignProvider extends ChangeNotifier {
     try {
       print("HELLO HELLO this is sign in");
       // check for errors
-      var response = await MainProvider.dioClient.post("/login/", //this is the
+      var response = await Client.dio.post("/login/", //this is the
           data: {
             "username": username,
             "password": password,
@@ -64,7 +63,7 @@ class SignProvider extends ChangeNotifier {
       var token =
           response.data["token"]; // the other name for the token is access
 
-      MainProvider.dioClient.options.headers["authorization"] =
+      Client.dio.options.headers["authorization"] =
           "Bearer $token"; // setting the header for the token
 
       this.username = username;
@@ -100,8 +99,7 @@ class SignProvider extends ChangeNotifier {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.remove("token");
     username = null; // no signin for the user
-    MainProvider.dioClient.options.headers
-        .remove("authorization"); // removing the header
+    Client.dio.options.headers.remove("authorization"); // removing the header
     notifyListeners();
 
     print("this is signout");

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:letseat/client.dart';
+import 'package:letseat/models/category_model.dart';
+import 'package:letseat/pages/add_category.dart';
 import 'package:letseat/pages/add_recipe.dart';
 import 'package:letseat/pages/signup_page.dart';
 
@@ -11,6 +13,7 @@ import 'package:letseat/pages/signin.dart';
 import 'package:letseat/pages/home_page.dart';
 import 'package:letseat/providers/category_provider.dart';
 import 'package:letseat/providers/sign_provider.dart';
+import 'package:letseat/widgets/recipe_card.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -45,6 +48,10 @@ final router = GoRouter(initialLocation: "/", routes: [
   GoRoute(
     path: "/signin",
     builder: (context, state) => Singin(),
+  ),
+  GoRoute(
+    path: "/add/category",
+    builder: (context, state) => AddCategoryPage(),
   ),
 ]);
 

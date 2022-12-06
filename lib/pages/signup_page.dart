@@ -70,19 +70,19 @@ class SignupPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      var signed = await context.read<SignProvider>().signup(
+                      var error = await context.read<SignProvider>().signup(
                           username: usernameController.text,
                           password: passwordController.text);
                       print("================================== ");
-                      print("$signed");
+                      print("$error");
                       print("================================== ");
 
                       // calling the provider
-                      if (signed) {
-                        context.go("/HomePage");
+                      if (error == null) {
+                        context.pop();
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("You did not signup ")));
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(error)));
                       }
                     }
                   },

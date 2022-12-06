@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:letseat/models/category_model.dart';
 import 'package:letseat/providers/category_provider.dart';
+import 'package:letseat/widgets/category_card.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  HomePage({this.category, super.key});
+
+  final CategoryModel? category;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Text("hi"),
+      ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: AppBar(
@@ -68,57 +75,36 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: Column(children: [
-        Card(
-          color: Color.fromARGB(255, 225, 232, 141),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              "CATEGORIES",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: context.watch<CategoryProvider>().categories.length,
-            itemBuilder: (context, index) => Card(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Card(
               color: Color.fromARGB(255, 225, 232, 141),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                            radius: 50,
-                            foregroundImage: AssetImage(
-                              context
-                                  .watch<CategoryProvider>()
-                                  .categories[index]
-                                  .image,
-                            )),
-                        Spacer(),
-                        Text(
-                          context
-                              .watch<CategoryProvider>()
-                              .categories[index]
-                              .text,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                child: Text(
+                  "CATEGORIES",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
                 ),
               ),
             ),
-          ),
+            InkWell(
+                onTap: () {
+                  context.push('/add/category');
+                },
+                child: Icon(Icons.add))
+          ],
+        ),
+        Expanded(
+          child: ListView.builder(
+              itemCount: context.watch<CategoryProvider>().categories.length,
+              itemBuilder: (context, index) => CategoryCard(
+                    category:
+                        context.watch<CategoryProvider>().categories[index],
+                  )),
         ),
       ]),
     );

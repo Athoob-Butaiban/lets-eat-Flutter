@@ -21,10 +21,10 @@ class CategoryCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                // CircleAvatar(
-                //   radius: 50,
-                //   // foregroundImage:
-                // ),
+                CircleAvatar(
+                  radius: 50,
+                  // foregroundImage:
+                ),
                 SizedBox(
                     height: 100,
                     width: 100,

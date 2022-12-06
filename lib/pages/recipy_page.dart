@@ -5,16 +5,18 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:letseat/models/recipies_model.dart';
-import 'package:letseat/providers/recipes_provider.dart';
+import 'package:letseat/providers/recipes_provider_not_used.dart';
 
+import '../models/recipe_model_2.dart';
 import '../providers/category_provider.dart';
+import '../providers/recipe_provider.dart';
 
 class RecipyPage extends StatelessWidget {
-  final RecipesModel recipy;
-  const RecipyPage({
-    Key? key,
-    required this.recipy,
-  }) : super(key: key);
+  // final Recipe recipy;
+  // RecipyPage({
+  //   Key? key,
+  //   required this.recipy,
+  // }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,24 +49,7 @@ class RecipyPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(18),
                 ),
               ),
-              child: Text("Signup"),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                context.push('/signin');
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(121, 255, 153, 0),
-                padding: EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
-                textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-              ),
-              child: Text("Signin"),
+              child: Text("SignOut"),
             ),
           ],
           title: Center(
@@ -82,7 +67,7 @@ class RecipyPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              "Recipes",
+              context.watch<CategoryProvider>().categories[0].name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
@@ -92,7 +77,7 @@ class RecipyPage extends StatelessWidget {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: context.watch<AmericanFoodProvider>().recipes.length,
+            itemCount: context.watch<RecipeProvider>().recipes.length,
             itemBuilder: (context, index) => Card(
               color: Color.fromARGB(255, 225, 232, 141),
               child: Padding(
@@ -105,16 +90,13 @@ class RecipyPage extends StatelessWidget {
                             radius: 50,
                             foregroundImage: AssetImage(
                               context
-                                  .watch<AmericanFoodProvider>()
+                                  .watch<RecipeProvider>()
                                   .recipes[index]
                                   .image,
                             )),
                         Spacer(),
                         Text(
-                          context
-                              .watch<AmericanFoodProvider>()
-                              .recipes[index]
-                              .text,
+                          context.watch<RecipeProvider>().recipes[index].title,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,

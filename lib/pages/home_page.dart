@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-<<<<<<< HEAD
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:letseat/pages/American_Food_page.dart';
-import 'package:letseat/providers/recipes_provider.dart';
-=======
-import 'package:letseat/models/category_model.dart';
->>>>>>> 65a99bd47650377310f14342dda27b95d3b27acc
 import 'package:letseat/providers/category_provider.dart';
 import 'package:letseat/widgets/category_card.dart';
 import 'package:provider/provider.dart';
+
+import '../models/category_model.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({this.category, super.key});
@@ -85,42 +80,14 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Card(
-              color: Color.fromARGB(255, 225, 232, 141),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    InkWell(
-                      onTap: () => GoRouter.of(context).push("/recipies",
-                          extra: context
-                              .watch<CategoryProvider>()
-                              .categories[index]),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                              radius: 50,
-                              foregroundImage: AssetImage(
-                                context
-                                    .watch<CategoryProvider>()
-                                    .categories[index]
-                                    .image,
-                              )),
-                          Spacer(),
-                          Text(
-                            context
-                                .watch<CategoryProvider>()
-                                .categories[index]
-                                .text,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  "CATEGORIES",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
                 ),
               ),
             ),

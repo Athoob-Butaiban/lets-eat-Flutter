@@ -1,11 +1,8 @@
-class CategoryModel {
-  int id;
+class RecipesModel {
   String text;
   String image;
-
-  CategoryModel({
+  RecipesModel({
     required this.text,
     required this.image,
-    required this.id,
   });
 }

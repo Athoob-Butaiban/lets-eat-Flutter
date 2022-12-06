@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:letseat/pages/American_Food_page.dart';
+import 'package:letseat/pages/recipy_page.dart';
 import 'package:letseat/pages/signup_page.dart';
 
 import 'package:letseat/pages/signin.dart';
@@ -9,9 +11,12 @@ import 'package:letseat/pages/signin.dart';
 import 'package:letseat/pages/home_page.dart';
 import 'package:letseat/providers/category_provider.dart';
 import 'package:letseat/providers/main_provider.dart';
+import 'package:letseat/providers/recipes_provider.dart';
 import 'package:letseat/providers/sign_provider.dart';
 import 'package:letseat/providers/signin_provider.dart';
 import 'package:provider/provider.dart';
+
+import 'models/recipies_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +51,16 @@ final router = GoRouter(initialLocation: "/", routes: [
     path: "/signin",
     builder: (context, state) => Singin(),
   ),
+  GoRoute(
+    path: "/American_Food",
+    builder: (context, state) => AmericanFood(),
+  ),
+  GoRoute(
+    path: "/recipies",
+    builder: (context, state) => RecipyPage(
+      recipy: state.extra as RecipesModel,
+    ),
+  ),
 ]);
 
 class MyApp extends StatelessWidget {
@@ -62,6 +77,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => signProvider),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
         ChangeNotifierProvider(create: (context) => SigninProvider()),
+        ChangeNotifierProvider(create: (context) => RecipesProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: router,

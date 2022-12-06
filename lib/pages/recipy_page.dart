@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:letseat/pages/American_Food_page.dart';
-import 'package:letseat/providers/recipes_provider.dart';
-import 'package:letseat/providers/category_provider.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+import 'package:letseat/models/recipies_model.dart';
+import 'package:letseat/providers/recipes_provider.dart';
+
+import '../providers/category_provider.dart';
+
+class RecipyPage extends StatelessWidget {
+  final RecipesModel recipy;
+  const RecipyPage({
+    Key? key,
+    required this.recipy,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +22,18 @@ class HomePage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: AppBar(
-          automaticallyImplyLeading: false,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
-          ),
+          // automaticallyImplyLeading: false,
+          // leading: Builder(
+          //   builder: (BuildContext context) {
+          //     return IconButton(
+          //       icon: const Icon(Icons.menu),
+          //       onPressed: () {
+          //         Scaffold.of(context).openDrawer();
+          //       },
+          //       tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+          //     );
+          //   },
+          // ),
           actions: [
             ElevatedButton(
               onPressed: () {
@@ -64,7 +69,7 @@ class HomePage extends StatelessWidget {
           ],
           title: Center(
             child: Text(
-              "LETS EAT",
+              'LETS EAT',
               style:
                   TextStyle(fontSize: 30, color: Color.fromARGB(255, 1, 5, 23)),
             ),
@@ -77,7 +82,7 @@ class HomePage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              "CATEGORIES",
+              "Recipes",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
@@ -87,42 +92,36 @@ class HomePage extends StatelessWidget {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: context.watch<CategoryProvider>().categories.length,
+            itemCount: context.watch<AmericanFoodProvider>().recipes.length,
             itemBuilder: (context, index) => Card(
               color: Color.fromARGB(255, 225, 232, 141),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
-                    InkWell(
-                      onTap: () => GoRouter.of(context).push("/recipies",
-                          extra: context
-                              .watch<CategoryProvider>()
-                              .categories[index]),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                              radius: 50,
-                              foregroundImage: AssetImage(
-                                context
-                                    .watch<CategoryProvider>()
-                                    .categories[index]
-                                    .image,
-                              )),
-                          Spacer(),
-                          Text(
-                            context
-                                .watch<CategoryProvider>()
-                                .categories[index]
-                                .text,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              fontStyle: FontStyle.italic,
-                            ),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                            radius: 50,
+                            foregroundImage: AssetImage(
+                              context
+                                  .watch<AmericanFoodProvider>()
+                                  .recipes[index]
+                                  .image,
+                            )),
+                        Spacer(),
+                        Text(
+                          context
+                              .watch<AmericanFoodProvider>()
+                              .recipes[index]
+                              .text,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            fontStyle: FontStyle.italic,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

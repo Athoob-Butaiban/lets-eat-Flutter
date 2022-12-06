@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:letseat/pages/American_Food_page.dart';
+import 'package:letseat/pages/add_category.dart';
 import 'package:letseat/pages/recipy_page.dart';
 import 'package:letseat/pages/signup_page.dart';
 
@@ -10,23 +11,23 @@ import 'package:letseat/pages/signin.dart';
 
 import 'package:letseat/pages/home_page.dart';
 import 'package:letseat/providers/category_provider.dart';
-import 'package:letseat/providers/main_provider.dart';
 import 'package:letseat/providers/recipes_provider.dart';
 import 'package:letseat/providers/sign_provider.dart';
-import 'package:letseat/providers/signin_provider.dart';
+import 'package:letseat/widgets/recipe_card.dart';
 import 'package:provider/provider.dart';
 
+import 'client.dart';
 import 'models/recipies_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isAndroid) {
-    MainProvider.dioClient.options.baseUrl = "http://10.0.2.2:8000";
+    Client.dio.options.baseUrl = "http://10.0.2.2:8000";
   }
 
   var signProvider = SignProvider();
-  var authorized = await signProvider.tokena(); // checking the token
+  var authorized = await signProvider.hasToken(); // checking the token
 
   print("authorized $authorized"); // to test the autherization
 
@@ -61,6 +62,10 @@ final router = GoRouter(initialLocation: "/", routes: [
       recipy: state.extra as RecipesModel,
     ),
   ),
+  GoRoute(
+    path: "/add/category",
+    builder: (context, state) => AddCategoryPage(),
+  ),
 ]);
 
 class MyApp extends StatelessWidget {
@@ -73,10 +78,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => signProvider),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
-        ChangeNotifierProvider(create: (context) => SigninProvider()),
+        ChangeNotifierProvider(create: (context) => SignProvider()),
         ChangeNotifierProvider(create: (context) => RecipesProvider()),
       ],
       child: MaterialApp.router(

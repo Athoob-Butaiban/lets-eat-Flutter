@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../providers/sign_provider.dart';
@@ -72,19 +70,19 @@ class SignupPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      var signed = await context.read<SignProvider>().sign(
+                      var error = await context.read<SignProvider>().signup(
                           username: usernameController.text,
                           password: passwordController.text);
                       print("================================== ");
-                      print("$signed");
+                      print("$error");
                       print("================================== ");
 
                       // calling the provider
-                      if (signed) {
-                        context.go("/HomePage");
+                      if (error == null) {
+                        context.pop();
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("You did not signup ")));
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(error)));
                       }
                     }
                   },

@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
+<<<<<<< HEAD
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:letseat/pages/American_Food_page.dart';
 import 'package:letseat/providers/recipes_provider.dart';
+=======
+import 'package:letseat/models/category_model.dart';
+>>>>>>> 65a99bd47650377310f14342dda27b95d3b27acc
 import 'package:letseat/providers/category_provider.dart';
+import 'package:letseat/widgets/category_card.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  HomePage({this.category, super.key});
+
+  final CategoryModel? category;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Text("hi"),
+      ),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: AppBar(
@@ -32,6 +40,7 @@ class HomePage extends StatelessWidget {
           actions: [
             ElevatedButton(
               onPressed: () {
+                //if
                 context.push('/signup');
               },
               style: ElevatedButton.styleFrom(
@@ -72,23 +81,10 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: Column(children: [
-        Card(
-          color: Color.fromARGB(255, 225, 232, 141),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              "CATEGORIES",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: context.watch<CategoryProvider>().categories.length,
-            itemBuilder: (context, index) => Card(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Card(
               color: Color.fromARGB(255, 225, 232, 141),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -128,7 +124,20 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+            InkWell(
+                onTap: () {
+                  context.push('/add/category');
+                },
+                child: Icon(Icons.add))
+          ],
+        ),
+        Expanded(
+          child: ListView.builder(
+              itemCount: context.watch<CategoryProvider>().categories.length,
+              itemBuilder: (context, index) => CategoryCard(
+                    category:
+                        context.watch<CategoryProvider>().categories[index],
+                  )),
         ),
       ]),
     );

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/signin_provider.dart';
+import '../providers/sign_provider.dart';
 
 class Singin extends StatelessWidget {
   Singin({super.key});
@@ -58,12 +58,19 @@ class Singin extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () async {
                       if (keyForm.currentState!.validate()) {
-                        var signed = await context.read<SigninProvider>().sign(
+                        var signed = await context.read<SignProvider>().signin(
                             username: usernameController.text,
                             password: passwordController
                                 .text); // calling the provider
-                        if (signed) {
-                          context.go("/login/");
+
+                        print("+++++++++++++++++++++++++++++++");
+                        print("           ");
+                        print("i'm here");
+                        print("           ");
+                        print("+++++++++++++++++++++++++++++++");
+
+                        if (signed == null) {
+                          context.pop();
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("You did not signin ")));

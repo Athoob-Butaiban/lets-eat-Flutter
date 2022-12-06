@@ -1,7 +1,5 @@
 // making provider for signup
 
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -12,9 +10,10 @@ class SignProvider extends ChangeNotifier {
   String? username; // to check if the user is loged in or not
   int? password;
   // make the function future to await it & convert itstype to give reponse
-  Future<bool> signup(
+  Future<String?> signup(
       {required String username, required String password}) async {
     try {
+      Client.dio.options.headers.remove("authorization");
       print("helllo hello this is signup");
       // check for errors
       var response = await Client.dio.post("/register/", //
@@ -37,20 +36,27 @@ class SignProvider extends ChangeNotifier {
       var preferences = await SharedPreferences.getInstance();
       await preferences.setString("token", token); // saving the token
 
-      return true; // when the user sign successflly
+      return null; // when the user sign successflly
     } on DioError catch (e) {
       print(e);
+
+      if (e.response != null) {
+        var map = e.response!.data as Map;
+        print(map.values.first);
+        return map.values.first.first;
+      }
     } catch (e) {
       print(e);
     }
-    return false; // when the user can't sign
+    return "unknoen error"; // when the user can't sign
   }
 
-  Future<bool> signin(
+  Future<String?> signin(
       {required String username, required String password}) async {
     try {
       print("HELLO HELLO this is sign in");
       // check for errors
+      Client.dio.options.headers.remove("authorization");
       var response = await Client.dio.post("/login/", //this is the
           data: {
             "username": username,
@@ -71,13 +77,13 @@ class SignProvider extends ChangeNotifier {
       var preferences = await SharedPreferences.getInstance();
       await preferences.setString("token", token); // saving the token
 
-      return true; // when the user sign successflly
+      return null; // when the user sign successflly
     } on DioError catch (e) {
       print(e);
     } catch (e) {
       print(e);
     }
-    return false; // when the user can't sign
+    return null; // when the user can't sign
   }
 
   Future<bool> hasToken() async {

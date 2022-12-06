@@ -69,8 +69,8 @@ class Singin extends StatelessWidget {
                         print("           ");
                         print("+++++++++++++++++++++++++++++++");
 
-                        if (signed) {
-                          context.go("/login/");
+                        if (signed == null) {
+                          context.pop();
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("You did not signin ")));

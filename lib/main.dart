@@ -40,7 +40,7 @@ void main() async {
   ));
 }
 
-final router = GoRouter(initialLocation: "/", routes: [
+final router = GoRouter(initialLocation: "/recipies", routes: [
   GoRoute(
     path: "/",
     builder: (context, state) => HomePage(),

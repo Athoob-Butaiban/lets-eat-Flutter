@@ -54,23 +54,26 @@ class RecipyPage extends StatelessWidget {
           ],
           title: Center(
             child: Text(
-              'LETS EAT',
+              'LETS EAT SOME RECIPES',
               style:
-                  TextStyle(fontSize: 30, color: Color.fromARGB(255, 1, 5, 23)),
+                  TextStyle(fontSize: 25, color: Color.fromARGB(255, 1, 5, 23)),
             ),
           ),
         ),
       ),
       body: Column(children: [
-        Card(
-          color: Color.fromARGB(255, 225, 232, 141),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              context.watch<CategoryProvider>().categories[0].name,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
+        ListView.builder(
+          itemCount: 1,
+          itemBuilder: (context, index) => Card(
+            color: Color.fromARGB(255, 225, 232, 141),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                context.watch<CategoryProvider>().categories[index].name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
               ),
             ),
           ),

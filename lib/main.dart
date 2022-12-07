@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:letseat/client.dart';
 import 'package:letseat/models/category_model.dart';
+import 'package:letseat/models/recipe_model_2.dart';
 import 'package:letseat/pages/add_category.dart';
 import 'package:letseat/pages/add_recipe.dart';
+import 'package:letseat/pages/recipe_page2.dart';
 import 'package:letseat/pages/signup_page.dart';
 
 import 'package:letseat/pages/signin.dart';
 
 import 'package:letseat/pages/home_page.dart';
 import 'package:letseat/providers/category_provider.dart';
+import 'package:letseat/providers/recipe_provider.dart';
 import 'package:letseat/providers/sign_provider.dart';
 import 'package:letseat/widgets/recipe_card.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +56,16 @@ final router = GoRouter(initialLocation: "/", routes: [
     path: "/add/category",
     builder: (context, state) => AddCategoryPage(),
   ),
+  GoRoute(
+    path: "/recipes",
+    builder: (context, state) => RecipePage(
+      category: state.extra as CategoryModel,
+    ),
+  ),
+  GoRoute(
+    path: "/add/recipe",
+    builder: (context, state) => AddRecipePage(),
+  ),
 ]);
 
 class MyApp extends StatelessWidget {
@@ -66,7 +79,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => signProvider),
-        ChangeNotifierProvider(create: (context) => CategoryProvider()),
+        ChangeNotifierProvider(
+          create: (context) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RecipeProvider(),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: router,

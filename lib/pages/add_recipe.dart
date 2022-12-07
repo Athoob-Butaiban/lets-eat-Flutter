@@ -109,6 +109,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                     if (formKey.currentState!.validate() && imageFile != null) {
                       // await context.read<RecipeProvider>().addRecipe();
                     }
+                    context.pop();
                   },
                   child: Text("Add recipe"))
             ],

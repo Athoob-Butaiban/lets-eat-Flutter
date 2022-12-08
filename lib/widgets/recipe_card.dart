@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 import '../providers/category_provider.dart';
 
 class RecipeCard extends StatelessWidget {
-  RecipeCard({this.recipe, super.key});
+  RecipeCard({required this.recipe, super.key});
 
-  final Recipe? recipe;
+  final Recipe recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +24,13 @@ class RecipeCard extends StatelessWidget {
             child: Column(
               children: [
                 Image.network(
-                  "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg",
+                  "${recipe.image}",
                   width: 200,
                   height: 200,
                   fit: BoxFit.cover,
                 ),
                 Text(
-                  "hi",
+                  "${recipe.title}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -38,7 +38,7 @@ class RecipeCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "description",
+                  "${recipe.body}",
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 15,

@@ -5,12 +5,17 @@ class Recipe {
   String title;
   String image;
   String body;
-
+  int category;
+  List<int> ingredients;
+  int user;
   Recipe({
     required this.id,
     required this.title,
     required this.image,
     required this.body,
+    required this.category,
+    required this.ingredients,
+    required this.user,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,6 +24,9 @@ class Recipe {
       'title': title,
       'image': image,
       'body': body,
+      'category': category,
+      'ingredients': ingredients,
+      'user': user,
     };
   }
 
@@ -28,6 +36,9 @@ class Recipe {
       title: map['title'] ?? '',
       image: map['image'] ?? '',
       body: map['body'] ?? '',
+      category: map['category']?.toInt() ?? 0,
+      ingredients: List<int>.from(map['ingredients']),
+      user: map['user']?.toInt() ?? 0,
     );
   }
 

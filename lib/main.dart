@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:letseat/client.dart';
-import 'package:letseat/models/category_model.dart';
 import 'package:letseat/models/recipe_model_2.dart';
 import 'package:letseat/pages/add_category.dart';
+
+import 'package:letseat/client.dart';
+import 'package:letseat/models/category_model.dart';
 import 'package:letseat/pages/add_recipe.dart';
 import 'package:letseat/pages/recipe_page2.dart';
 import 'package:letseat/pages/signup_page.dart';
@@ -16,16 +17,18 @@ import 'package:letseat/pages/home_page.dart';
 import 'package:letseat/providers/category_provider.dart';
 import 'package:letseat/providers/recipe_provider.dart';
 import 'package:letseat/providers/sign_provider.dart';
-import 'package:letseat/widgets/recipe_card.dart';
 import 'package:provider/provider.dart';
+
+import 'client.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isAndroid) {
     Client.dio.options.baseUrl = "http://10.0.2.2:8000";
+  } else if (Platform.isIOS) {
+    Client.dio.options.baseUrl = "http://localhost:8000";
   }
-
   var signProvider = SignProvider();
   var authorized = await signProvider.hasToken(); // checking the token
 
@@ -79,12 +82,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => signProvider),
-        ChangeNotifierProvider(
-          create: (context) => CategoryProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => RecipeProvider(),
-        ),
+        ChangeNotifierProvider(create: (context) => CategoryProvider()),
+        ChangeNotifierProvider(create: (context) => SignProvider()),
+        ChangeNotifierProvider(create: (context) => RecipeProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: router,

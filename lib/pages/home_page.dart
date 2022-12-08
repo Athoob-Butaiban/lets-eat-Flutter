@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:letseat/models/category_model.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:letseat/providers/category_provider.dart';
 import 'package:letseat/providers/sign_provider.dart';
 import 'package:letseat/widgets/category_card.dart';
 import 'package:provider/provider.dart';
+
+import '../models/category_model.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({this.category, super.key});
@@ -91,7 +93,7 @@ class HomePage extends StatelessWidget {
                 ],
           title: Center(
             child: Text(
-              'LETS EAT',
+              "LETS EAT",
               style:
                   TextStyle(fontSize: 30, color: Color.fromARGB(255, 1, 5, 23)),
             ),
@@ -103,7 +105,6 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Card(
-              color: Color.fromARGB(255, 225, 232, 141),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(

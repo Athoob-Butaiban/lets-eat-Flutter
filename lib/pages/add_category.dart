@@ -1,12 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:letseat/providers/category_provider.dart';
-import 'package:letseat/providers/recipe_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddCategoryPage extends StatefulWidget {

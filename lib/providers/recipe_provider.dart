@@ -39,14 +39,14 @@ class RecipeProvider extends ChangeNotifier {
 
   Future<void> addRecipe({
     required String title,
-    required String description,
+    required String body,
     required File image,
   }) async {
     // try {
     await Client.dio.post("/recipes",
         data: FormData.fromMap({
           "title": title,
-          "description": description,
+          "body": body,
           "image": await MultipartFile.fromFile(image.path),
         }));
 
@@ -58,15 +58,15 @@ class RecipeProvider extends ChangeNotifier {
 
   Future<void> editRecipe({
     required String title,
-    required String description,
+    required String body,
     required File image,
     required int id,
   }) async {
     try {
-      await Client.dio.patch("/recipes/$id",
+      await Client.dio.patch("/recipes/$id/",
           data: FormData.fromMap({
             "title": title,
-            "description": description,
+            "body": body,
             "image": await MultipartFile.fromFile(image.path),
           }));
 

@@ -107,7 +107,10 @@ class _AddRecipePageState extends State<AddRecipePage> {
                     }
 
                     if (formKey.currentState!.validate() && imageFile != null) {
-                      // await context.read<RecipeProvider>().addRecipe();
+                      await context.read<RecipeProvider>().addRecipe(
+                          title: titleController.text,
+                          body: descriptionController.text,
+                          image: imageFile!);
                     }
                     context.pop();
                   },

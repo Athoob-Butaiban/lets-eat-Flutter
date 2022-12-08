@@ -7,11 +7,16 @@ import 'package:provider/provider.dart';
 
 import '../providers/category_provider.dart';
 
-class RecipeCard extends StatelessWidget {
+class RecipeCard extends StatefulWidget {
   RecipeCard({required this.recipe, super.key});
 
   final Recipe recipe;
 
+  @override
+  State<RecipeCard> createState() => _RecipeCardState();
+}
+
+class _RecipeCardState extends State<RecipeCard> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,13 +30,13 @@ class RecipeCard extends StatelessWidget {
             child: Column(
               children: [
                 Image.network(
-                  "${recipe.image}",
+                  "${widget.recipe.image}",
                   width: 200,
                   height: 200,
                   fit: BoxFit.cover,
                 ),
                 Text(
-                  "${recipe.title}",
+                  "${widget.recipe.title}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -41,7 +46,7 @@ class RecipeCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "${recipe.body}",
+                      "${widget.recipe.body}",
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 15,
@@ -49,11 +54,21 @@ class RecipeCard extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    InkWell(
-                        onTap: () {
-                          context.push('/edit/recipe', extra: recipe);
-                        },
-                        child: Icon(Icons.edit)),
+                    Column(
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              context.push('/edit/recipe',
+                                  extra: widget.recipe);
+                            },
+                            child: Icon(Icons.edit)),
+                        IconButton(
+                            onPressed: () {
+                              setState(() {});
+                            },
+                            icon: Icon(Icons.delete)),
+                      ],
+                    ),
                   ],
                 ),
               ],

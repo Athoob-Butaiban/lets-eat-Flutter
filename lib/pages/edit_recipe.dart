@@ -121,10 +121,11 @@ class _EditRecipePageState extends State<EditRecipePage> {
 
                       context.read<RecipeProvider>().editRecipe(
                           title: titleController.text,
-                          description: descriptionController.text,
+                          body: descriptionController.text,
                           image: imageFile!,
                           id: widget.recipe.id);
                     }
+                    print(widget.recipe.title);
                     context.pop();
                   },
                   child: Text("Confirm Changes")),

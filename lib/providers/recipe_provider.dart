@@ -2,26 +2,36 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:letseat/models/category_model.dart';
 
 import '../client.dart';
 import '../models/recipe_model_2.dart';
 
 class RecipeProvider extends ChangeNotifier {
   List<Recipe> recipes = [];
+  CategoryModel? category;
   var isLoading = true;
 
-  void getRecipes() async {
-    isLoading = true;
-    notifyListeners();
+  Future<void> getRecipes() async {
+    try {
+      isLoading = true;
+      notifyListeners();
 
-    var response = await Client.dio.get("/recipes");
+      // this.category = category;
 
-    var RecipeJasonList = response.data as List;
+      var response = await Client.dio.get("/recipes/");
 
-    recipes = RecipeJasonList.map((e) => Recipe.fromMap(e)).toList();
+      var RecipeJasonList = response.data as List;
 
-    isLoading = false;
-    notifyListeners();
+      recipes = RecipeJasonList.map((e) => Recipe.fromMap(e)).toList();
+
+      recipes = recipes;
+
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 
   void addRecipe({
@@ -29,14 +39,18 @@ class RecipeProvider extends ChangeNotifier {
     required String description,
     required File image,
   }) async {
-    await Client.dio.post("/recipes",
-        data: FormData.fromMap({
-          "title": title,
-          "description": description,
-          "image": await MultipartFile.fromFile(image.path),
-        }));
+    try {
+      await Client.dio.post("/recipes",
+          data: FormData.fromMap({
+            "title": title,
+            "description": description,
+            "image": await MultipartFile.fromFile(image.path),
+          }));
 
-    getRecipes();
+      getRecipes();
+    } catch (e) {
+      print(e);
+    }
   }
 
   void editRecipe({
@@ -45,14 +59,18 @@ class RecipeProvider extends ChangeNotifier {
     required File image,
     required int id,
   }) async {
-    await Client.dio.patch("/recipes/$id",
-        data: FormData.fromMap({
-          "title": title,
-          "description": description,
-          "image": await MultipartFile.fromFile(image.path),
-        }));
+    try {
+      await Client.dio.patch("/recipes/$id",
+          data: FormData.fromMap({
+            "title": title,
+            "description": description,
+            "image": await MultipartFile.fromFile(image.path),
+          }));
 
-    getRecipes();
+      getRecipes();
+    } catch (e) {
+      print(e);
+    }
   }
 
   void deleteRecipe(int id) async {

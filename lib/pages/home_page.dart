@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:letseat/pages/American_Food_page.dart';
-import 'package:letseat/providers/recipes_provider.dart';
 import 'package:letseat/providers/category_provider.dart';
+import 'package:letseat/providers/sign_provider.dart';
 import 'package:letseat/widgets/category_card.dart';
 import 'package:provider/provider.dart';
 
@@ -35,40 +34,63 @@ class HomePage extends StatelessWidget {
               );
             },
           ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                //if
-                context.push('/signup');
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(121, 255, 153, 0),
-                padding: EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
-                textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-              ),
-              child: Text("Signup"),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                context.push('/signin');
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(121, 255, 153, 0),
-                padding: EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
-                textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-              ),
-              child: Text("Signin"),
-            ),
-          ],
+          actions: context.watch<SignProvider>().username == null
+              ? [
+                  ElevatedButton(
+                    onPressed: () {
+                      //if
+                      context.push('/signup');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(121, 255, 153, 0),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
+                      textStyle:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
+                    child: Text("Signup"),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.push('/signin');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(121, 255, 153, 0),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
+                      textStyle:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
+                    child: Text("Signin"),
+                  ),
+                ]
+              : [
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<SignProvider>().signout();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(121, 255, 153, 0),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
+                      textStyle:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
+                    child: Text("Signout"),
+                  ),
+                ],
           title: Center(
             child: Text(
               "LETS EAT",

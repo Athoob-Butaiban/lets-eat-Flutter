@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:letseat/models/recipe_model_2.dart';
-import 'package:letseat/pages/American_Food_page.dart';
 import 'package:letseat/pages/add_category.dart';
-import 'package:letseat/pages/recipy_page.dart';
+
+import 'package:letseat/client.dart';
+import 'package:letseat/models/category_model.dart';
+import 'package:letseat/pages/add_recipe.dart';
+import 'package:letseat/pages/recipe_page2.dart';
 import 'package:letseat/pages/signup_page.dart';
 
 import 'package:letseat/pages/signin.dart';
@@ -13,20 +16,19 @@ import 'package:letseat/pages/signin.dart';
 import 'package:letseat/pages/home_page.dart';
 import 'package:letseat/providers/category_provider.dart';
 import 'package:letseat/providers/recipe_provider.dart';
-import 'package:letseat/providers/recipes_provider_not_used.dart';
 import 'package:letseat/providers/sign_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'client.dart';
-import 'models/recipies_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isAndroid) {
     Client.dio.options.baseUrl = "http://10.0.2.2:8000";
+  } else if (Platform.isIOS) {
+    Client.dio.options.baseUrl = "http://localhost:8000";
   }
-
   var signProvider = SignProvider();
   var authorized = await signProvider.hasToken(); // checking the token
 
@@ -40,7 +42,7 @@ void main() async {
   ));
 }
 
-final router = GoRouter(initialLocation: "/recipies", routes: [
+final router = GoRouter(initialLocation: "/", routes: [
   GoRoute(
     path: "/",
     builder: (context, state) => HomePage(),
@@ -54,17 +56,18 @@ final router = GoRouter(initialLocation: "/recipies", routes: [
     builder: (context, state) => Singin(),
   ),
   GoRoute(
-    path: "/American_Food",
-    builder: (context, state) => AmericanFood(),
-  ),
-  GoRoute(
-    path: "/recipies",
-    builder: (context, state) => RecipyPage(),
-    // recipy: state.extra as Recipe,
-  ),
-  GoRoute(
     path: "/add/category",
     builder: (context, state) => AddCategoryPage(),
+  ),
+  GoRoute(
+    path: "/recipes",
+    builder: (context, state) => RecipePage(
+      category: state.extra as CategoryModel,
+    ),
+  ),
+  GoRoute(
+    path: "/add/recipe",
+    builder: (context, state) => AddRecipePage(),
   ),
 ]);
 

@@ -34,7 +34,7 @@ class _RecipePageState extends State<RecipePage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<RecipeProvider>().getRecipes();
+      context.read<RecipeProvider>().getRecipes(category: widget.category);
     });
   }
 
@@ -47,6 +47,7 @@ class _RecipePageState extends State<RecipePage> {
             ElevatedButton(
               onPressed: () {
                 context.read<SignProvider>().signout();
+                context.pop();
               },
               style: ElevatedButton.styleFrom(
                 primary: Color.fromARGB(121, 255, 153, 0),

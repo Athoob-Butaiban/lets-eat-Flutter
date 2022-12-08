@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:letseat/models/category_model.dart';
+import 'package:letseat/providers/recipe_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/category_provider.dart';

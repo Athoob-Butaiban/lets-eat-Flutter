@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:letseat/models/recipe_model_2.dart';
 import 'package:provider/provider.dart';
 
@@ -37,13 +38,23 @@ class RecipeCard extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                Text(
-                  "${recipe.body}",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 15,
-                    fontStyle: FontStyle.italic,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      "${recipe.body}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 15,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                    Spacer(),
+                    InkWell(
+                        onTap: () {
+                          context.push('/edit/recipe', extra: recipe);
+                        },
+                        child: Icon(Icons.edit)),
+                  ],
                 ),
               ],
             ),

@@ -9,51 +9,54 @@ import '../models/recipe_model_2.dart';
 
 class RecipeProvider extends ChangeNotifier {
   List<Recipe> recipes = [];
-  CategoryModel? category;
+  // CategoryModel? category;
   var isLoading = true;
 
-  Future<void> getRecipes() async {
-    try {
-      isLoading = true;
-      notifyListeners();
+  Future<void> getRecipes({CategoryModel? category}) async {
+    // try {
+    isLoading = true;
+    notifyListeners();
 
-      // this.category = category;
+    // this.category = category;
 
-      var response = await Client.dio.get("/recipes/");
+    var response = await Client.dio.get("/recipes/");
 
-      var RecipeJasonList = response.data as List;
+    var RecipeJasonList = response.data as List;
 
-      recipes = RecipeJasonList.map((e) => Recipe.fromMap(e)).toList();
+    recipes = RecipeJasonList.map((e) => Recipe.fromMap(e)).toList();
 
-      recipes = recipes;
-
-      isLoading = false;
-      notifyListeners();
-    } catch (e) {
-      print(e);
+    if (category != null) {
+      recipes =
+          recipes.where((recipe) => recipe.category == category.id).toList();
     }
+
+    isLoading = false;
+    notifyListeners();
+    // } catch (e) {
+    //   print(e);
+    // }
   }
 
-  void addRecipe({
+  Future<void> addRecipe({
     required String title,
     required String description,
     required File image,
   }) async {
-    try {
-      await Client.dio.post("/recipes",
-          data: FormData.fromMap({
-            "title": title,
-            "description": description,
-            "image": await MultipartFile.fromFile(image.path),
-          }));
+    // try {
+    await Client.dio.post("/recipes",
+        data: FormData.fromMap({
+          "title": title,
+          "description": description,
+          "image": await MultipartFile.fromFile(image.path),
+        }));
 
-      getRecipes();
-    } catch (e) {
-      print(e);
-    }
+    getRecipes();
+    // } catch (e) {
+    //   print(e);
+    // }
   }
 
-  void editRecipe({
+  Future<void> editRecipe({
     required String title,
     required String description,
     required File image,

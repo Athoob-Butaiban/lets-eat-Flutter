@@ -67,4 +67,6 @@ class CategoryProvider extends ChangeNotifier {
 
     getCategories();
   }
+
+  void signout() {}
 }

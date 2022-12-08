@@ -18,16 +18,20 @@ class EditRecipePage extends StatefulWidget {
 }
 
 class _EditRecipePageState extends State<EditRecipePage> {
-  final titleController = TextEditingController();
-
-  final descriptionController = TextEditingController();
+  late final TextEditingController titleController;
+  late final TextEditingController descriptionController;
 
   File? imageFile;
   String? imageError;
-  String title = "";
-  String description = "";
 
   var formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController(text: widget.recipe.title);
+    descriptionController = TextEditingController(text: widget.recipe.body);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
                 )
               else
                 Container(
-                  child: Icon(Icons.image),
+                  child: Image.network(widget.recipe.image),
                   width: 100,
                   height: 100,
                 ),
@@ -92,9 +96,6 @@ class _EditRecipePageState extends State<EditRecipePage> {
                     return null;
                   }
                 },
-                onSaved: (value) {
-                  title = value!;
-                },
               ),
               TextFormField(
                 controller: descriptionController,
@@ -105,9 +106,6 @@ class _EditRecipePageState extends State<EditRecipePage> {
                   } else {
                     return null;
                   }
-                },
-                onSaved: (value) {
-                  description = value!;
                 },
               ),
               ElevatedButton(

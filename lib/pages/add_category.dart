@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:letseat/providers/category_provider.dart';
+import 'package:letseat/theme/theme_constants.dart';
 import 'package:provider/provider.dart';
 
 class AddCategoryPage extends StatefulWidget {
@@ -27,11 +28,11 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: AppBar(
+          backgroundColor: COLOR_PRIMARY,
           title: Center(
             child: Text(
-              'Add Category',
-              style:
-                  TextStyle(fontSize: 30, color: Color.fromARGB(255, 1, 5, 23)),
+              'ADD CATEGORY',
+              style: TextStyle(fontSize: 30, color: Colors.white),
             ),
           ),
         ),
@@ -69,6 +70,9 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                       imageError = null;
                     });
                   },
+                  style: ElevatedButton.styleFrom(
+                    primary: COLOR_PRIMARY,
+                  ),
                   child: Text("Upload Image")),
               TextFormField(
                 controller: titleController,
@@ -82,20 +86,27 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                 },
               ),
               ElevatedButton(
-                  onPressed: () async {
-                    if (imageFile == null) {
-                      setState(() {
-                        imageError = "Image is required";
-                      });
-                    }
+                onPressed: () async {
+                  if (imageFile == null) {
+                    setState(() {
+                      imageError = "Image is required";
+                    });
+                  }
 
-                    if (formKey.currentState!.validate() && imageFile != null) {
-                      await context.read<CategoryProvider>().addCategory(
-                          text: titleController.text, image: imageFile!);
-                      context.pop();
-                    }
-                  },
-                  child: Text("Add Category")),
+                  if (formKey.currentState!.validate() && imageFile != null) {
+                    await context.read<CategoryProvider>().addCategory(
+                        text: titleController.text, image: imageFile!);
+                    context.pop();
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: COLOR_PRIMARY,
+                ),
+                child: Text(
+                  'ADD CATEGORY',
+                  style: TextStyle(fontSize: 30, color: Colors.white),
+                ),
+              )
             ],
           ),
         ),

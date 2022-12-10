@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:letseat/providers/recipe_provider.dart';
+import 'package:letseat/theme/theme_constants.dart';
 import 'package:provider/provider.dart';
 
 class AddRecipePage extends StatefulWidget {
@@ -31,12 +32,10 @@ class _AddRecipePageState extends State<AddRecipePage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: AppBar(
+          backgroundColor: COLOR_PRIMARY,
           title: Center(
-            child: Text(
-              'Add recipe',
-              style:
-                  TextStyle(fontSize: 30, color: Color.fromARGB(255, 1, 5, 23)),
-            ),
+            child: Text('ADD RECIPE',
+                style: TextStyle(fontSize: 30, color: Colors.white)),
           ),
         ),
       ),
@@ -75,6 +74,9 @@ class _AddRecipePageState extends State<AddRecipePage> {
                       imageError = null;
                     });
                   },
+                  style: ElevatedButton.styleFrom(
+                    primary: COLOR_PRIMARY,
+                  ),
                   child: Text("Upload Image")),
               TextFormField(
                 controller: titleController,
@@ -114,7 +116,13 @@ class _AddRecipePageState extends State<AddRecipePage> {
                     }
                     context.pop();
                   },
-                  child: Text("Add recipe"))
+                  style: ElevatedButton.styleFrom(
+                    primary: COLOR_PRIMARY,
+                  ),
+                  child: Text(
+                    "ADD RECIPE",
+                    style: TextStyle(fontSize: 30, color: Colors.white),
+                  ))
             ],
           ),
         ),

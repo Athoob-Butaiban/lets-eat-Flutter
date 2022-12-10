@@ -9,6 +9,8 @@ import 'package:letseat/models/recipe_model_2.dart';
 import 'package:letseat/providers/recipe_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../theme/theme_constants.dart';
+
 class EditRecipePage extends StatefulWidget {
   final Recipe recipe;
   EditRecipePage({super.key, required this.recipe});
@@ -44,10 +46,10 @@ class _EditRecipePageState extends State<EditRecipePage> {
             title: Center(
               child: Text(
                 'Edit recipe',
-                style: TextStyle(
-                    fontSize: 30, color: Color.fromARGB(255, 1, 5, 23)),
+                style: TextStyle(fontSize: 30, color: Colors.white),
               ),
             ),
+            backgroundColor: COLOR_PRIMARY,
           ),
         ),
         body: Padding(
@@ -85,7 +87,10 @@ class _EditRecipePageState extends State<EditRecipePage> {
                       imageError = null;
                     });
                   },
-                  child: Text("Change Image")),
+                  child: Text("Change Image"),
+                  style: ElevatedButton.styleFrom(
+                    primary: COLOR_PRIMARY,
+                  )),
               TextFormField(
                 controller: titleController,
                 decoration: InputDecoration(hintText: "Title"),
@@ -128,7 +133,13 @@ class _EditRecipePageState extends State<EditRecipePage> {
                     print(widget.recipe.title);
                     context.pop();
                   },
-                  child: Text("Confirm Changes")),
+                  child: Text(
+                    "Confirm Changes",
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: COLOR_PRIMARY,
+                  )),
             ],
           ),
         ),

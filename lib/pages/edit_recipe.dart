@@ -22,6 +22,7 @@ class EditRecipePage extends StatefulWidget {
 class _EditRecipePageState extends State<EditRecipePage> {
   late final TextEditingController titleController;
   late final TextEditingController descriptionController;
+  late final TextEditingController inputingredientsController;
 
   File? imageFile;
   String? imageError;
@@ -33,6 +34,8 @@ class _EditRecipePageState extends State<EditRecipePage> {
     super.initState();
     titleController = TextEditingController(text: widget.recipe.title);
     descriptionController = TextEditingController(text: widget.recipe.body);
+    inputingredientsController =
+        TextEditingController(text: widget.recipe.inputingredients);
   }
 
   @override
@@ -113,6 +116,17 @@ class _EditRecipePageState extends State<EditRecipePage> {
                   }
                 },
               ),
+              TextFormField(
+                controller: inputingredientsController,
+                decoration: InputDecoration(hintText: "ingredients"),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Required field";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
               ElevatedButton(
                   onPressed: () {
                     if (imageFile == null) {
@@ -128,6 +142,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
                           title: titleController.text,
                           body: descriptionController.text,
                           image: imageFile!,
+                          inputingredients: inputingredientsController.text,
                           id: widget.recipe.id);
                     }
                     print(widget.recipe.title);

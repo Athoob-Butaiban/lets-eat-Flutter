@@ -1,16 +1,22 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:letseat/models/category_model.dart';
 import 'package:letseat/providers/recipe_provider.dart';
 import 'package:letseat/theme/theme_constants.dart';
 import 'package:provider/provider.dart';
 
+import '../models/recipe_model_2.dart';
+
 class AddRecipePage extends StatefulWidget {
-  AddRecipePage({super.key});
+  AddRecipePage({super.key, required this.category});
+
+  final CategoryModel category;
 
   @override
   State<AddRecipePage> createState() => _AddRecipePageState();
@@ -20,6 +26,8 @@ class _AddRecipePageState extends State<AddRecipePage> {
   final titleController = TextEditingController();
 
   final descriptionController = TextEditingController();
+
+  final ingController = TextEditingController();
 
   File? imageFile;
   String? imageError;
@@ -100,6 +108,17 @@ class _AddRecipePageState extends State<AddRecipePage> {
                   return null;
                 },
               ),
+              TextFormField(
+                controller: ingController,
+                decoration: InputDecoration(hintText: "ingredients"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Required field";
+                  }
+
+                  return null;
+                },
+              ),
               ElevatedButton(
                   onPressed: () async {
                     if (imageFile == null) {
@@ -110,11 +129,19 @@ class _AddRecipePageState extends State<AddRecipePage> {
 
                     if (formKey.currentState!.validate() && imageFile != null) {
                       await context.read<RecipeProvider>().addRecipe(
-                          title: titleController.text,
-                          body: descriptionController.text,
-                          image: imageFile!);
+                            title: titleController.text,
+                            body: descriptionController.text,
+                            image: imageFile!,
+                            category: widget.category.id,
+                            ingredients: int.parse("1"),
+                            user: int.parse("1"),
+                            inputingredients: ingController.text,
+                          );
                     }
-                    context.pop();
+                    Navigator.popUntil(
+                      context,
+                      ModalRoute.withName('/'),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     primary: COLOR_PRIMARY,

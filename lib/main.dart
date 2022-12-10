@@ -71,7 +71,9 @@ final router = GoRouter(initialLocation: "/new", routes: [
   ),
   GoRoute(
     path: "/add/recipe",
-    builder: (context, state) => AddRecipePage(),
+    builder: (context, state) => AddRecipePage(
+      category: state.extra as CategoryModel,
+    ),
   ),
   GoRoute(
     path: "/edit/recipe",

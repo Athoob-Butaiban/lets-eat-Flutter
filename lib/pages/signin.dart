@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:letseat/theme/theme_constants.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/sign_provider.dart';
@@ -21,6 +22,7 @@ class Singin extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Signin Page"),
+        backgroundColor: COLOR_PRIMARY,
       ),
       body: SafeArea(
         child: Form(
@@ -77,6 +79,9 @@ class Singin extends StatelessWidget {
                         }
                       }
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: COLOR_PRIMARY,
+                    ),
                     child: Text("Signin")),
               ],
             ),

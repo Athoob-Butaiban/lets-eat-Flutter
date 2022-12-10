@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 
 import '../models/recipe_model_2.dart';
 import '../providers/sign_provider.dart';
+import '../theme/theme_constants.dart';
+import '../theme/theme_manager.dart';
 
 extension StringCasingExtension on String {
   String toCapitalized() =>
@@ -29,8 +31,28 @@ class RecipePage extends StatefulWidget {
 }
 
 class _RecipePageState extends State<RecipePage> {
+  ThemeManager _themeManager = ThemeManager();
+
+  @override
+  void dispose() {
+    _themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  // void initState() {
+  //   _themeManager.addListener(themeListener);
+  //   super.initState();
+  // }
+
+  themeListener() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   @override
   void initState() {
+    _themeManager.addListener(themeListener);
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -43,52 +65,17 @@ class _RecipePageState extends State<RecipePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                context.read<SignProvider>().signout();
-                context.pop();
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(121, 255, 153, 0),
-                padding: EdgeInsets.symmetric(horizontal: 0.5, vertical: 0.5),
-                textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-              ),
-              child: Text("SignOut"),
-            ),
-          ],
-          title: Text(
-            "LETS EAT SOME RECIPES ",
-            style:
-                TextStyle(fontSize: 22, color: Color.fromARGB(255, 1, 5, 23)),
-          )),
+        backgroundColor: COLOR_PRIMARY,
+        actions: [
+          Switch(
+              value: _themeManager.themeMode == ThemeMode.dark,
+              onChanged: (newValue) {
+                _themeManager.toggleTheme(newValue);
+              })
+        ],
+        title: Center(child: letsEat),
+      ),
       body: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Card(
-              color: Color.fromARGB(255, 225, 232, 141),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  "Click + to add a new Recipe",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                  ),
-                ),
-              ),
-            ),
-            InkWell(
-                onTap: () {
-                  context.push('/add/recipe');
-                },
-                child: Icon(Icons.add_box_outlined)),
-          ],
-        ),
         context.watch<RecipeProvider>().isLoading
             ? Center(
                 child: CircularProgressIndicator(),
@@ -102,6 +89,13 @@ class _RecipePageState extends State<RecipePage> {
                       );
                     }),
               ),
+        FloatingActionButton(
+          onPressed: () {
+            context.push('/add/recipe');
+          },
+          child: Icon(Icons.add),
+          backgroundColor: COLOR_PRIMARY,
+        )
       ]),
     );
   }

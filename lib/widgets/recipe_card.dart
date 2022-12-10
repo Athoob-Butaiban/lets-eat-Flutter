@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:letseat/models/recipe_model_2.dart';
+import 'package:letseat/theme/theme_constants.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/category_provider.dart';
@@ -24,7 +25,7 @@ class _RecipeCardState extends State<RecipeCard> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Card(
-          color: Color.fromARGB(255, 225, 232, 141),
+          color: COLOR_ACCENT,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -38,20 +39,20 @@ class _RecipeCardState extends State<RecipeCard> {
                 Text(
                   "${widget.recipe.title}",
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    fontStyle: FontStyle.italic,
-                  ),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.white),
                 ),
                 Row(
                   children: [
                     Text(
                       "${widget.recipe.body}",
                       style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 15,
-                        fontStyle: FontStyle.italic,
-                      ),
+                          fontWeight: FontWeight.normal,
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black),
                     ),
                     Spacer(),
                     Column(
@@ -61,12 +62,15 @@ class _RecipeCardState extends State<RecipeCard> {
                               context.push('/edit/recipe',
                                   extra: widget.recipe);
                             },
-                            child: Icon(Icons.edit)),
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.white70,
+                            )),
                         IconButton(
                             onPressed: () {
                               setState(() {});
                             },
-                            icon: Icon(Icons.delete)),
+                            icon: Icon(Icons.delete, color: Colors.white70)),
                       ],
                     ),
                   ],

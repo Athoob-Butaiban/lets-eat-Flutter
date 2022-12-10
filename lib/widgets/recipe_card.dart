@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:letseat/models/recipe_model_2.dart';
+import 'package:letseat/providers/recipe_provider.dart';
 import 'package:letseat/theme/theme_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -68,7 +69,11 @@ class _RecipeCardState extends State<RecipeCard> {
                             )),
                         IconButton(
                             onPressed: () {
-                              setState(() {});
+                              context
+                                  .read<RecipeProvider>()
+                                  .deleteRecipe(widget.recipe.id);
+
+                              context.pop();
                             },
                             icon: Icon(Icons.delete, color: Colors.white70)),
                       ],

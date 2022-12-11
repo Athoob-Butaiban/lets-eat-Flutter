@@ -25,62 +25,67 @@ class _RecipeCardState extends State<RecipeCard> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Card(
-          color: COLOR_ACCENT,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Image.network(
-                  "${widget.recipe.image}",
-                  width: 200,
-                  height: 200,
-                  fit: BoxFit.cover,
-                ),
-                Text(
-                  "${widget.recipe.title}",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.white),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "${widget.recipe.body}",
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 15,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.black),
-                    ),
-                    Spacer(),
-                    Column(
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              context.push('/edit/recipe',
-                                  extra: widget.recipe);
-                            },
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.white70,
-                            )),
-                        IconButton(
-                            onPressed: () {
-                              context
-                                  .read<RecipeProvider>()
-                                  .deleteRecipe(widget.recipe.id);
+        InkWell(
+          onTap: () {
+            context.push("/detail/recipe", extra: widget.recipe);
+          },
+          child: Card(
+            color: COLOR_ACCENT,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Image.network(
+                    "${widget.recipe.image}",
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                  Text(
+                    "${widget.recipe.title}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.white),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "${widget.recipe.body}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.black),
+                      ),
+                      Spacer(),
+                      Column(
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                context.push('/edit/recipe',
+                                    extra: widget.recipe);
+                              },
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.white70,
+                              )),
+                          IconButton(
+                              onPressed: () {
+                                context
+                                    .read<RecipeProvider>()
+                                    .deleteRecipe(widget.recipe.id);
 
-                              context.pop();
-                            },
-                            icon: Icon(Icons.delete, color: Colors.white70)),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                                // context.pop();
+                              },
+                              icon: Icon(Icons.delete, color: Colors.white70)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

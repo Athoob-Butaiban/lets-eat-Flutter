@@ -35,7 +35,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
     titleController = TextEditingController(text: widget.recipe.title);
     descriptionController = TextEditingController(text: widget.recipe.body);
     inputingredientsController =
-        TextEditingController(text: widget.recipe.inputingredients);
+        TextEditingController(text: widget.recipe.inputingerdients);
   }
 
   @override

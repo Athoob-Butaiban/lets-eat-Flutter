@@ -10,6 +10,7 @@ import 'package:letseat/models/category_model.dart';
 import 'package:letseat/pages/add_recipe.dart';
 import 'package:letseat/pages/edit_recipe.dart';
 import 'package:letseat/pages/new_design_page.dart';
+import 'package:letseat/pages/recipe_detail.dart';
 import 'package:letseat/pages/recipe_page2.dart';
 import 'package:letseat/pages/signup_page.dart';
 
@@ -84,6 +85,12 @@ final router = GoRouter(initialLocation: "/new", routes: [
   GoRoute(
     path: "/new",
     builder: (context, state) => NewHomePage(),
+  ),
+  GoRoute(
+    path: "/detail/recipe",
+    builder: (context, state) => RecipeDetail(
+      recipe: state.extra as Recipe,
+    ),
   ),
 ]);
 

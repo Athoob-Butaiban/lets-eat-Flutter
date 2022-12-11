@@ -17,8 +17,9 @@ ThemeData lightTheme = ThemeData(
                     borderRadius: BorderRadius.circular(20.0))),
             backgroundColor: MaterialStateProperty.all<Color>(COLOR_ACCENT))));
 
-ThemeData darkTheme =
-    ThemeData(brightness: Brightness.dark, primaryColor: COLOR_ACCENT);
+ThemeData darkTheme = ThemeData(
+  brightness: Brightness.dark,
+);
 
 ThemeData colorBar =
     ThemeData(backgroundColor: Color.fromARGB(255, 225, 232, 141));

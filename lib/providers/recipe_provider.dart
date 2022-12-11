@@ -44,7 +44,7 @@ class RecipeProvider extends ChangeNotifier {
     required int category,
     required int ingredients,
     required int user,
-    required String inputingredients,
+    required String inputingerdients,
   }) async {
     // try {
     await Client.dio.post("/recipes/",
@@ -55,7 +55,7 @@ class RecipeProvider extends ChangeNotifier {
           "category": category,
           "ingredients": ingredients,
           "user": user,
-          "inputingerdients": inputingredients,
+          "inputingerdients": inputingerdients,
         }));
 
     getRecipes();
@@ -68,7 +68,7 @@ class RecipeProvider extends ChangeNotifier {
     required String title,
     required String body,
     required File image,
-    required String inputingredients,
+    required String inputingerdients,
     required int id,
   }) async {
     try {
@@ -77,7 +77,7 @@ class RecipeProvider extends ChangeNotifier {
             "title": title,
             "body": body,
             "image": await MultipartFile.fromFile(image.path),
-            "inputingerdients": inputingredients,
+            "inputingerdients": inputingerdients,
           }));
 
       getRecipes();

@@ -135,7 +135,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                             category: widget.category.id,
                             ingredients: int.parse("1"),
                             user: int.parse("1"),
-                            inputingredients: ingController.text,
+                            inputingerdients: ingController.text,
                           );
                     }
                     Navigator.popUntil(

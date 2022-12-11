@@ -35,7 +35,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
     titleController = TextEditingController(text: widget.recipe.title);
     descriptionController = TextEditingController(text: widget.recipe.body);
     inputingredientsController =
-        TextEditingController(text: widget.recipe.inputingredients);
+        TextEditingController(text: widget.recipe.inputingerdients);
   }
 
   @override
@@ -142,8 +142,8 @@ class _EditRecipePageState extends State<EditRecipePage> {
                           title: titleController.text,
                           body: descriptionController.text,
                           image: imageFile!,
-                          inputingredients: inputingredientsController.text,
-                          id: widget.recipe.id);
+                          inputingerdients: inputingredientsController.text,
+                          id: int.parse("${widget.recipe.id}"));
                     }
                     print(widget.recipe.title);
                     context.pop();

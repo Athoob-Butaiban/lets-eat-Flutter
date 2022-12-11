@@ -91,7 +91,7 @@ class _RecipePageState extends State<RecipePage> {
               ),
         FloatingActionButton(
           onPressed: () {
-            context.push('/add/recipe');
+            context.push('/add/recipe', extra: widget.category);
           },
           child: Icon(Icons.add),
           backgroundColor: COLOR_PRIMARY,

@@ -8,7 +8,7 @@ class Recipe {
   int category;
   List<int> ingredients;
   int user;
-  String inputingredients;
+  String inputingerdients;
   Recipe({
     required this.id,
     required this.title,
@@ -17,7 +17,7 @@ class Recipe {
     required this.category,
     required this.ingredients,
     required this.user,
-    required this.inputingredients,
+    required this.inputingerdients,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,7 +29,7 @@ class Recipe {
       'category': category,
       'ingredients': ingredients,
       'user': user,
-      'inputingredients': inputingredients,
+      'inputingerdients': inputingerdients,
     };
   }
 
@@ -42,7 +42,7 @@ class Recipe {
       category: map['category']?.toInt() ?? 0,
       ingredients: List<int>.from(map['ingredients']),
       user: map['user']?.toInt() ?? 0,
-      inputingredients: map['inputingredients'] ?? '',
+      inputingerdients: map['inputingerdients'] ?? '',
     );
   }
 

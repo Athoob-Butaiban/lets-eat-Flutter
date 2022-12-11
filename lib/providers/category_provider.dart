@@ -8,10 +8,6 @@ import 'package:letseat/models/category_model.dart';
 import '../client.dart';
 
 class CategoryProvider extends ChangeNotifier {
-  // List<CategoryModel> categories = [
-  //   CategoryModel(text: "American Food", image: "assets/pic1.jpeg"),
-  //   CategoryModel(text: "Kuwaiti Food", image: "assets/pic2.jpeg"),
-  // ];
   List<CategoryModel> categories = [];
 
   var isLoading = true;

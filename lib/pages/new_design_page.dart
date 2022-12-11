@@ -9,6 +9,8 @@ import 'package:letseat/theme/theme_manager.dart';
 import 'package:provider/provider.dart';
 
 import '../models/category_model.dart';
+import 'drawer/header_drawer.dart';
+import 'drawer/list_drawer.dart';
 
 class NewHomePage extends StatefulWidget {
   NewHomePage({this.category, super.key});
@@ -42,8 +44,16 @@ class _NewHomePageState extends State<NewHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: Text("hi"),
-      ),
+          backgroundColor: COLOR_PRIMARY,
+          child: SingleChildScrollView(
+            child: Container(
+                child: Column(
+              children: [
+                HeaderDrawer(),
+                ListDrawer(),
+              ],
+            )),
+          )),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: AppBar(
@@ -132,30 +142,6 @@ class _NewHomePageState extends State<NewHomePage> {
                     ),
                   ],
           ),
-          Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              // children: [
-              //   Card(
-              //     child: Padding(
-              //       padding: const EdgeInsets.all(10.0),
-              //       child: Text(
-              //         "CATEGORIES",
-              //         style: TextStyle(
-              //           fontWeight: FontWeight.bold,
-              //           fontSize: 30,
-              //           color: Colors.white70,
-              //           backgroundColor: COLOR_ACCENT,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              //   InkWell(
-              //       onTap: () {
-              //         context.push('/add/category');
-              //       },
-              //       child: Icon(Icons.add)),
-              // ],
-              ),
           Expanded(
             child: ListView.builder(
                 itemCount: context.watch<CategoryProvider>().categories.length,

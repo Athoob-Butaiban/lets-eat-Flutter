@@ -142,8 +142,8 @@ class _EditRecipePageState extends State<EditRecipePage> {
                           title: titleController.text,
                           body: descriptionController.text,
                           image: imageFile!,
-                          inputingerdients: inputingredientsController.text,
-                          id: int.parse("${widget.recipe.id}"));
+                          inputingredients: inputingredientsController.text,
+                          id: widget.recipe.id);
                     }
                     print(widget.recipe.title);
                     context.pop();

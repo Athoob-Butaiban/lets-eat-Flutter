@@ -76,6 +76,29 @@ class _RecipePageState extends State<RecipePage> {
         title: Center(child: letsEat),
       ),
       body: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Card(
+              color: Color.fromARGB(255, 225, 232, 141),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "Click + to add a new Recipe",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                ),
+              ),
+            ),
+            InkWell(
+                onTap: () {
+                  context.push('/add/recipe', extra: widget.category);
+                },
+                child: Icon(Icons.add_box_outlined)),
+          ],
+        ),
         context.watch<RecipeProvider>().isLoading
             ? Center(
                 child: CircularProgressIndicator(),
